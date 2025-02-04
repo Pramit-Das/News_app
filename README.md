@@ -1,2 +1,2 @@
 # News_app
-News app by using new API : https://newsapi.org/.
+News app by using news API : https://newsapi.org/.
