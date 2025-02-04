@@ -23,10 +23,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.pramit.newsapp.R
 import com.pramit.newsapp.viewmodel.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,13 +70,21 @@ fun NewsDetailsScreen(
                     .fillMaxSize()
                     .padding(16.dp)
             ) {
-                Text(text = article!!.title, style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
+
+                val imageUrl = article!!.urlToImage
+                val painter = if (imageUrl != null) {
+                    rememberImagePainter(data = imageUrl)
+                } else {
+                    painterResource(R.drawable.image_not_available) // Placeholder image
+                }
+
                 Image(
-                    painter = rememberImagePainter(data = article!!.urlToImage),
+                    painter = painter,
                     contentDescription = null,
                     modifier = Modifier.fillMaxWidth()
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = article!!.title, style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(text = article!!.description ?: "No Description", style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(8.dp))

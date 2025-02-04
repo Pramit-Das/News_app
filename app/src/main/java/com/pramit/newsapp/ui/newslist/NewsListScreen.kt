@@ -32,10 +32,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.pramit.newsapp.R
 import com.pramit.newsapp.model.Article
 import com.pramit.newsapp.viewmodel.NewsViewModel
 import com.pramit.newsapp.ui.state.UiState
@@ -120,13 +122,20 @@ fun NewsItem(article: Article, onClick: () -> Unit) {
             .clickable(onClick = onClick)
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
+            val imageUrl = article.urlToImage
+            val painter = if (imageUrl != null) {
+                rememberImagePainter(data = imageUrl)
+            } else {
+                painterResource(R.drawable.image_not_available) // Placeholder image
+            }
+
             Image(
-                painter = rememberImagePainter(data = article.urlToImage),
+                painter = painter,
                 contentDescription = null,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(120.dp)
             )
             Column(modifier = Modifier.padding(start = 8.dp)) {
-                Text(text = article.title, style = MaterialTheme.typography.bodyLarge)
+                Text(text = article.title, style = MaterialTheme.typography.titleMedium)
                 Text(text = article.description ?: "", style = MaterialTheme.typography.bodyMedium)
             }
         }
