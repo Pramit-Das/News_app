@@ -22,5 +22,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideNewsDao(db: NewsDatabase): NewsDao = db.newsDao()
+    fun provideNewsDao(db: NewsDatabase): NewsDao{
+        return db.newsDao()
+    }
 }
