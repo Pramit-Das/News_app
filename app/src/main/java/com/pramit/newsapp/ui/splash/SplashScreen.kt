@@ -9,20 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navigateToMain: () -> Unit) {
+fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
-        delay(3000)
-        navigateToMain()
+        delay(2000) // Show splash screen for 2 seconds
+        navController.navigate("news_list_screen") {
+            popUpTo("splash_screen") { inclusive = true } // Clear splash from back stack
+        }
     }
+
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text("News App", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onPrimary)
+        Text(text = "Welcome to News App", fontSize = 24.sp)
     }
 }

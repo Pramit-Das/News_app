@@ -1,3 +1,3 @@
 package com.pramit.newsapp.model
 
-data class NewsResponse(val articles: List<NewsArticle>)
+data class NewsResponse(val articles: List<Article>)
