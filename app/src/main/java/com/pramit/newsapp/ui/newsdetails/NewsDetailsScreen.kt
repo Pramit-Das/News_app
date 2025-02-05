@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.pramit.newsapp.R
+import com.pramit.newsapp.viewmodel.NewsDetailsViewmodel
 import com.pramit.newsapp.viewmodel.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,11 +37,8 @@ import com.pramit.newsapp.viewmodel.NewsViewModel
 fun NewsDetailsScreen(
     navController: NavHostController,
     articleId: String,
-    viewModel: NewsViewModel = hiltViewModel()
+    viewModel: NewsDetailsViewmodel = hiltViewModel()
 ) {
-
-    //val article = remember { viewModel.getArticleById(articleId) }
-
 
     LaunchedEffect(articleId) {
         viewModel.getArticleById(articleId)
