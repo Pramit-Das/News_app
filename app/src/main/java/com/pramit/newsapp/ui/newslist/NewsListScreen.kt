@@ -51,7 +51,6 @@ fun NewsListScreen(
     viewModel: NewsViewModel = hiltViewModel(),
     onArticleClick: (Article) -> Unit
 ) {
-   // val snackbarHostState = rememberSnackbarHostState()
     val scaffoldState = rememberScaffoldState()
     val uiState by viewModel.uiState.collectAsState()
 
@@ -68,10 +67,11 @@ fun NewsListScreen(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
+            //based on uiState it will execute the code
             when (uiState) {
                 is UiState.Loading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 is UiState.Success -> {
-                    //NewsList((uiState as UiState.Success).articles, onArticleClick)
+
                     NewsList(
                         articles = (uiState as UiState.Success).articles,
                         onArticleClick = { article ->
@@ -84,7 +84,7 @@ fun NewsListScreen(
                     LaunchedEffect(scaffoldState.snackbarHostState) {
                         scaffoldState.snackbarHostState.showSnackbar(cachedState.message)
                     }
-                   // NewsList(cachedState.articles, onArticleClick)
+
                     NewsList(
                         articles = cachedState.articles,
                         onArticleClick = { article ->

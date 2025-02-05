@@ -12,11 +12,11 @@ class NewsRepository @Inject constructor(
     private val api: NewsApi
 ) {
     suspend fun getNews(): List<Article> {
-        val response = api.getTopHeadlines("us", "dcb08905f38549049c486400be5097c4")
-        val articlesToSave = response.articles.ensureUniqueIds()
-        newsDao.insertAll(articlesToSave)
+        val response = api.getTopHeadlines("us", "dcb08905f38549049c486400be5097c4")  // need to pass country code and apikey
+        val articlesToSave = response.articles.ensureUniqueIds()  // getting unique key for article ID
+        newsDao.insertAll(articlesToSave)  // inserting news to DB
         return response.articles
     }
 
-    suspend fun getCachedNews(): List<Article> = newsDao.getAllArticles().firstOrNull() ?: emptyList()
+    suspend fun getCachedNews(): List<Article> = newsDao.getAllArticles().firstOrNull() ?: emptyList()  // getting data from db to show to user when network is offline
 }
